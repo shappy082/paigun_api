@@ -12,7 +12,7 @@ router.post('/', [
     body('password').not().isEmpty().withMessage('Field password is required').isLength({ min: 6 }).withMessage('Password must be  at least 6 digits')
 ], userController.signup);
 router.post('/signin',
-    body('email').not().isEmpty().withMessage('Field email is required').isEmail().withMessage('Wrong email format'),
+    body('name').not().isEmpty().withMessage('Field name is required'),
     body('password').not().isEmpty().withMessage('Field password is required')
     , userController.signin);
 router.get('/me', authentication.isLoggedIn, userController.getProfile);
