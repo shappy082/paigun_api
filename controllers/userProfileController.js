@@ -6,8 +6,8 @@ const User = require("../models/userProfileModel")
 
 exports.signup = async (req, res, next) => {
     try {
-        const { username, password, user_id } = req.body;
-        console.log(`username: ${username} \nuser_id: ${user_id} \npassword: ${password}`)
+        const { username, password, userid, name, role, roledesc } = req.body;
+        console.log(`username: ${username} \nuser_id: ${userid} \npassword: ${password} \nname: ${name} \nrole: ${role} \nroledesc: ${roledesc}`)
         //const user = await User.find()
         const user  = await User.findOne({ "username": username });
 
@@ -15,8 +15,11 @@ exports.signup = async (req, res, next) => {
             console.log("begib loop")
             let user = new User();
             user.username = username;
-            user.user_id = user_id;
+            user.userid = userid;
             user.password = password;
+            user.name = name;
+            user.role = role;
+            user.roledesc = roledesc;
 
             await user.save();
             console.log("end loop")

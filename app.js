@@ -19,6 +19,7 @@ const connectDB = require('./config/db')
 const friendReqRoute = require('./routes/friendReqRoute');
 const userFaceRoute = require('./routes/userFaceRoute');
 const commentRoute = require('./routes/commentRoute');
+const userProfileRoute =require('./routes/userProfileRoute');
 const app = express();
 
 //console.log(process.env);
@@ -58,6 +59,7 @@ app.use(passport.initialize());
 // app.use('/api/user', userRoute);
 // app.use('/api/post', postRoute);
 app.use('/signin', userFaceRoute);
+app.use('/signup', userProfileRoute);
 app.use('/friend', friendReqRoute);
 app.use('/comment', commentRoute);
 
