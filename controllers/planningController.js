@@ -1,4 +1,5 @@
 const Planning = require('../models/planningModel');
+const Location = require("../models/locationModel");
 
 module.exports.insertPlan = async (req, res) => {
     console.log(req.body);
@@ -72,13 +73,27 @@ module.exports.getPlanFromID = async (req, res) => {
 
 module.exports.getPlanFromLocationTag = async (req, res) => {
     const { tags } = req.body;
-    console.log(tags)
+    let locations_id = []
     try {
-        const plan = await Planning.findOne({ trip_id: trip_id });
-        res.status(200).json({
-            success: true,
-            // data: plan
-        });
+        //find location_id from tags
+        const place = await Location.find({ tag: { $in: tags } });
+        place.map(location => {
+            locations_id.push(location.location_id)
+        })
+        if (locations_id !== null) {
+            //find plan from location_id
+            const plan = await Planning.find({ "plan.location_id": { $in: locations_id } });
+            res.status(200).json({
+                success: true,
+                found: plan.length,
+                data: plan
+            });
+        } else {
+            res.status(200).json({
+                success: true,
+                data: null
+            });
+        }
     } catch (err) {
         res.status(500).json({
             errors: { err }
