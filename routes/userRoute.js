@@ -1,16 +1,16 @@
 const express = require('express')
 const { body } = require('express-validator');
 const userController = require('../controllers/userController')
+const userProfileController = require('../controllers/userProfileController')
 const authentication = require('../middleware/authenticationHandler');
 const authorization = require('../middleware/authorizationHandler');
 
 const router = express.Router()
 
-router.post('/', [
-    body('name').not().isEmpty().withMessage('Field name is required'),
-    body('email').not().isEmpty().withMessage('Field email is required').isEmail().withMessage('Wrong email format'),
+router.post('/signup', [
+    body('username').not().isEmpty().withMessage('Field username is required'),
     body('password').not().isEmpty().withMessage('Field password is required').isLength({ min: 6 }).withMessage('Password must be  at least 6 digits')
-], userController.signup);
+], userProfileController.signup);
 router.post('/signin',
     body('name').not().isEmpty().withMessage('Field name is required'),
     body('password').not().isEmpty().withMessage('Field password is required')
