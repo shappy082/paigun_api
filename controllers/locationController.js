@@ -29,25 +29,32 @@ module.exports.tagLocation = async function (req, res, next) {
 };
 */
 module.exports.createLocation = async (req, res) => {
-  console.log(req.body);
-  const { location_id, tag, location_name, location } = req.body;
-  // console.log(`user_id : ${user_id}`);
-  let post = new Location({
-    location_id: location_id,
-    tag: tag,
-    location_name: location_name,
-    location: location,
-  });
+  // console.log(req.body);
+  const { tag, location_name, location } = req.body;
+  Location.find().countDocuments(async function (_, count) {
+    if (err) {
+      res.status(500).json({
+        errors: { err },
+      });
+    }
 
-  try {
-    await post.save();
-    res.status(201).json({ data: post, success: true });
-  } catch (err) {
-    res.status(500).json({
-      errors: { err },
+    let post = new Location({
+      location_id: count + 1,
+      tag: tag,
+      location_name: location_name,
+      location: location,
     });
-  }
-};
+
+    try {
+      await post.save();
+      res.status(201).json({ success: true });
+    } catch (err) {
+      res.status(500).json({
+        errors: { err },
+      });
+    }
+  });
+}
 
 module.exports.updateLocation = async (req, res) => {
   try {
