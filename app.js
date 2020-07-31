@@ -16,9 +16,12 @@ const connectDB = require('./config/db')
 
 // const userRoute = require('./routes/userRoute');
 // const postRoute = require('./routes/postRoute');
-const friendReqRoute = require('./routes/friendReqRoute');
+// const friendReqRoute = require('./routes/friendReqRoute');
+// const commentRoute = require('./routes/commentRoute');
 const userFaceRoute = require('./routes/userFaceRoute');
 const planningRoute = require('./routes/planningRoute');
+const locationRoute = require('./routes/locationRoute');
+const userProfileRoute =require('./routes/userProfileRoute');
 const app = express();
 
 //console.log(process.env);
@@ -55,13 +58,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 //init passport
 app.use(passport.initialize());
 
+app.use('/signin', userFaceRoute);
+app.use('/signup', userProfileRoute);
+app.use('/location', locationRoute);
+app.use('/planning', planningRoute);
 // app.use('/api/user', userRoute);
 // app.use('/api/post', postRoute);
-app.use('/signin', userFaceRoute);
-app.use('/friend', friendReqRoute);
+// app.use('/friend', friendReqRoute);
 // app.use('/comment', commentRoute);
-app.use('/planning', planningRoute);
-
 app.use(errorHandler);
 
 app.listen(config.PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${config.PORT}`));
