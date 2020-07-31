@@ -19,6 +19,7 @@ const connectDB = require('./config/db')
 const friendReqRoute = require('./routes/friendReqRoute');
 const userFaceRoute = require('./routes/userFaceRoute');
 const commentRoute = require('./routes/commentRoute');
+const locationRoute = require('./routes/locationRoute');
 const app = express();
 
 //console.log(process.env);
@@ -58,9 +59,9 @@ app.use(passport.initialize());
 // app.use('/api/user', userRoute);
 // app.use('/api/post', postRoute);
 app.use('/signin', userFaceRoute);
-app.use('/friend', friendReqRoute);
+//app.use('/friend', friendReqRoute);
 app.use('/comment', commentRoute);
-
+app.use('/location', locationRoute);
 app.use(errorHandler);
 
 app.listen(config.PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${config.PORT}`));
