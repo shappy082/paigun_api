@@ -3,14 +3,15 @@ const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
 const userSchema = Schema({
+  user_id:  { type: Number, required: true },
   username:  { type: String, required: true, trim: true },
-  userid:  { type: Number, required: true, trim: true },
-  name:  { type: String, required: true, trim: true },
   password: { type: String, required: true, trim: true , minlength: 3 },
+  name:  { type: String, required: true, trim: true },
   role: { type: String, default: 'member' },
   roledesc: { type: String, default: 'member' }
 },{
-  collection: 'users'
+  collection: 'User',
+  versionKey: false
 });
 
 userSchema.methods.encryptPassword = async (password)  => {
@@ -20,12 +21,12 @@ userSchema.methods.encryptPassword = async (password)  => {
 }
 
 userSchema.methods.comparePassword = async function (password)  {
-  console.log(password);
-  console.log(this.password);
+  // console.log(password);
+  // console.log(this.password);
   const isValid = await bcrypt.compare(password, this.password);
   return isValid;
 }
   
   const user = mongoose.model('User', userSchema);
   
-  module.exports = user;;
+  module.exports = user;

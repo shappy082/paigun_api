@@ -1,5 +1,5 @@
 const config = require('../config/index');
-const User = require("../models/userFaceModel")
+const User = require("../models/userModel")
 const passport = require('passport');
 
 const JwtStrategy = require('passport-jwt').Strategy,
