@@ -235,7 +235,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"location_name\": \"โรงแรมนะเจ้า\",\r\n    \"tag\": [\"โรงแรม\",\"เชียงใหม่\"],\r\n    \"location\": [\"123.456\",\"789.123\"]\r\n}",
+					"raw": "{\r\n    \"location_name\": \"วัดหนึ่ง\",\r\n    \"tag\": [\"สถานที่ท่องเที่ยว\",\"เชียงใหม่\",\"วัด\"],\r\n    \"location\": [\"123.456\",\"789.123\"]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -293,7 +293,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n    \"tag\":[\r\n        \"วัด\"\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -317,8 +317,11 @@
 		},
 		{
 			"name": "/location/:location_id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -344,6 +347,197 @@
 						{
 							"key": "location_id",
 							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SERVER /user/signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test1\",\r\n    \"password\": \"11111111\",\r\n    \"name\": \"test user 01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://baac.topwork.asia:8441/user/signup",
+					"protocol": "http",
+					"host": [
+						"baac",
+						"topwork",
+						"asia"
+					],
+					"port": "8441",
+					"path": [
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SERVER /user/signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test1\",\r\n    \"password\": \"123123123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/user/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"user",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SERVER /location/insert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"location_name\": \"โรงแรมมารวย\",\r\n    \"tag\": [\"โรงแรม\",\"กรุงเทพ\"],\r\n    \"location\": [\"11.111\",\"231.231\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://baac.topwork.asia:8441/location/insert",
+					"protocol": "http",
+					"host": [
+						"baac",
+						"topwork",
+						"asia"
+					],
+					"port": "8441",
+					"path": [
+						"location",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SERVER /location/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/location/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"location",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SERVER /location/tag",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tag\":[\r\n        \"วัด\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://baac.topwork.asia:8441/location/tag",
+					"protocol": "http",
+					"host": [
+						"baac",
+						"topwork",
+						"asia"
+					],
+					"port": "8441",
+					"path": [
+						"location",
+						"tag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SERVER /location/:location_id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://baac.topwork.asia:8441/location/:location_id",
+					"protocol": "http",
+					"host": [
+						"baac",
+						"topwork",
+						"asia"
+					],
+					"port": "8441",
+					"path": [
+						"location",
+						":location_id"
+					],
+					"variable": [
+						{
+							"key": "location_id",
+							"value": "1"
 						}
 					]
 				}
