@@ -9,10 +9,10 @@ const schema = new Schema(
     location: [String]
   },
   {
-    collection: "location_tb",
+    collection: "Location",
     versionKey: false
   }
 );
-const location = mongoose.model("location_tb", schema);
+const location = mongoose.model("Location", schema);
 
 module.exports = location;

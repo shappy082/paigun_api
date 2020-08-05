@@ -44,14 +44,24 @@ module.exports.createLocation = async (req, res) => {
       location_name: location_name,
       location: location,
     });
-
-    try {
-      await post.save();
-      res.status(201).json({ success: true });
-    } catch (err) {
-      res.status(500).json({
-        errors: { err },
+    const exist = await Location.findOne(
+      {
+        location_name: location_name,
+        tag: tag
       });
+    if (exist !== null) {
+      res.status(500).json({
+        errors: "Location exist",
+      });
+    } else {
+      try {
+        await post.save();
+        res.status(201).json({ success: true });
+      } catch (err) {
+        res.status(500).json({
+          errors: { err },
+        });
+      }
     }
   });
 }
