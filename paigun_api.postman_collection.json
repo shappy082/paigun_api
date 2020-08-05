@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "8cdff207-0612-4abd-b9c4-fb4578c1f9da",
+		"name": "paigun_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/user/signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test1\",\r\n    \"password\": \"123123123\",\r\n    \"name\": \"test user 01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user/signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test1\",\r\n    \"password\": \"123123123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/user/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"user",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/planning/insert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"trip_id\": 1,\r\n    \"user_id\": 1,\r\n    \"plan\": [\r\n        {\r\n            \"location_id\": 1,\r\n            \"location_name\": \"วัดลิงขบ\",\r\n            \"date\":\"\"\r\n        },\r\n        {\r\n            \"location_id\": 2,\r\n            \"location_name\": \"วัดท่ายาก\",\r\n            \"date\":\"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/planning/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"planning",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/planning/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"trip_id\": 1,\r\n    \"user_id\": 1,\r\n    \"plan\": [\r\n        {\r\n            \"location_id\": 9,\r\n            \"location_name\": \"วัดวัง\",\r\n            \"date\":\"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/planning/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"planning",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/planning/location",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"trip_id\": 1,\r\n    \"user_id\": 1,\r\n    \"plan\": [\r\n        {\r\n            \"location_id\": 9,\r\n            \"location_name\": \"วัดวัง\",\r\n            \"date\":\"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/planning/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"planning",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/planning/user/:user_id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"trip_id\": 1,\r\n    \"user_id\": 1,\r\n    \"plan\": [\r\n        {\r\n            \"location_id\": 1,\r\n            \"location_name\": \"วัดลิงขบ\",\r\n            \"date\":\"\"\r\n        },\r\n        {\r\n            \"location_id\": 2,\r\n            \"location_name\": \"วัดท่ายาก\",\r\n            \"date\":\"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/planning/user/:user_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"planning",
+						"user",
+						":user_id"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/planning/trip/:trip_id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"trip_id\": 1,\r\n    \"user_id\": 1,\r\n    \"plan\": [\r\n        {\r\n            \"location_id\": 1,\r\n            \"location_name\": \"วัดลิงขบ\",\r\n            \"date\":\"\"\r\n        },\r\n        {\r\n            \"location_id\": 2,\r\n            \"location_name\": \"วัดท่ายาก\",\r\n            \"date\":\"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/planning/trip/:trip_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"planning",
+						"trip",
+						":trip_id"
+					],
+					"variable": [
+						{
+							"key": "trip_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/location/insert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"location_name\": \"โรงแรมนะเจ้า\",\r\n    \"tag\": [\"โรงแรม\",\"เชียงใหม่\"],\r\n    \"location\": [\"123.456\",\"789.123\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/location/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"location",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/location/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/location/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"location",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/location/tag",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/location/tag",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"location",
+						"tag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/location/:location_id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8441/location/:location_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8441",
+					"path": [
+						"location",
+						":location_id"
+					],
+					"variable": [
+						{
+							"key": "location_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
