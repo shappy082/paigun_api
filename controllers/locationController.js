@@ -107,13 +107,14 @@ module.exports.updateLocation = async (req, res) => {
 
 module.exports.tagLocation = async (req, res) => {
   const { tag } = req.body;
-  console.log(tag);
+  // console.log(tag);
   // console.log(`comment _id : ${_id}`);
   try {
     //{ tags: ["red", "blank"] }
     const tag_found = await Location.find({ tag: { $in: tag } });
     res.status(200).json({
       success: true,
+      found: tag_found.length,
       data: tag_found,
     });
   } catch (err) {
