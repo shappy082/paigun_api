@@ -16,6 +16,8 @@ const userRoute = require('./routes/userRoute');
 const planningRoute = require('./routes/planningRoute');
 const locationRoute = require('./routes/locationRoute');
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 //console.log(process.env);
 if (process.env.NODE_ENV === 'development') {
@@ -38,6 +40,7 @@ app.use(passport.initialize());
 app.use('/user', userRoute);
 app.use('/location', locationRoute);
 app.use('/planning', planningRoute);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(errorHandler);
 
