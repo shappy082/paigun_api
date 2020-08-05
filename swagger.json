@@ -1,0 +1,149 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Pai-เที่ยว-Gun",
+    "version": "1.0"
+  },
+  "host": "localhost:8441",
+  "basePath": "/",
+  "schemes": ["http"],
+  "tags": [
+    {
+      "name": "User",
+      "description": "API for users in the system"
+    }
+  ],
+  "paths": {
+    "/user/signin": {
+      "post": {
+        "tags": ["User"],
+        "description": "sign in and get token when succeeded",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to signin",
+            "schema": {
+              "$ref": "#/definitions/User_signin_request"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Login OK",
+            "schema": {
+              "$ref": "#/definitions/User_signin_response"
+            }
+          }
+        }
+      }
+    },
+    "/user/signup": {
+      "post": {
+        "tags": ["User"],
+        "description": "sign up for new user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User information",
+            "schema": {
+              "$ref": "#/definitions/User_signup_request"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Login OK",
+            "schema": {
+              "$ref": "#/definitions/User_signup_response"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": ["user_id", "username", "password", "name"],
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "number"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "roledesc": {
+          "type": "string"
+        }
+      }
+    },
+    "User_signin_request": {
+      "required": ["username", "password"],
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example":"user_test_01"
+        },
+        "password": {
+          "type": "string",
+          "example":"12345678"
+        }
+      }
+    },
+    "User_signin_response": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "User_signup_request": {
+      "required": ["username", "password", "name"],
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example":"user_test_01"
+        },
+        "password": {
+          "type": "string",
+          "example":"12345678"
+        },
+        "name": {
+          "type": "string",
+          "example":"John Doe"
+        }
+      }
+    },
+    "User_signup_response": {
+      "required": ["username", "password", "name"],
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
