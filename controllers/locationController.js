@@ -31,10 +31,10 @@ module.exports.tagLocation = async function (req, res, next) {
 module.exports.createLocation = async (req, res) => {
   // console.log(req.body);
   const { tag, location_name, location } = req.body;
-  Location.find().countDocuments(async function (_, count) {
-    if (err) {
+  Location.find().countDocuments(async function (error, count) {
+    if (error) {
       res.status(500).json({
-        errors: { err },
+        errors: { error },
       });
     }
 
