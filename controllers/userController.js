@@ -29,7 +29,11 @@ exports.signin = async (req, res) => {
       // from now on we'll identify the user by the id and the id is the only personalized value that goes into our token
       var payload = { id: user.id };
       var token = jwt.sign(payload, jwtOptions.secretOrKey);
-      res.json({ message: "ok", token: token });
+      res.json({
+        message: "ok",
+        user_id: user.user_id,
+        token: token
+      });
     } else {
       const error = new Error('Wrong password');
       error.statusCode = 422;

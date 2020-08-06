@@ -2,28 +2,41 @@ const Planning = require('../models/planningModel');
 const Location = require("../models/locationModel");
 
 module.exports.insertPlan = async (req, res) => {
-    console.log(req.body);
-    const { trip_id, user_id, plan } = req.body;
-    let planning = new Planning({
-        trip_id: trip_id,
-        user_id: user_id,
-        plan: plan,
-    });
-
-    try {
-        await planning.save();
-        res.status(201).json({ success: true });
-    } catch (err) {
-        res.status(500).json({
-            errors: { err }
+    // console.log(req.body);
+    const { user_id, plan_name, plan } = req.body;
+    await Planning.find().countDocuments(async function (error, count) {
+        if (error) {
+            res.status(500).json({
+                errors: { error },
+            });
+        }
+        let planning = new Planning({
+            trip_id: count + 1,
+            user_id: user_id,
+            plan_name: plan_name,
+            plan: plan,
         });
-    }
+
+        try {
+            await planning.save();
+            res.status(201).json({ success: true });
+        } catch (err) {
+            res.status(500).json({
+                errors: { err }
+            });
+        }
+    });
 }
 
 module.exports.updatePlan = async (req, res) => {
-    const { trip_id, plan } = req.body;
+    const { trip_id, plan_name, plan } = req.body;
     try {
-        const plan_updated = await Planning.updateOne({ trip_id: trip_id }, { plan: plan });
+        const plan_updated = await Planning.updateOne(
+            { trip_id: trip_id },
+            {
+                plan_name: plan_name,
+                plan: plan
+            });
         // console.log(plan_updated);
         if (plan_updated.nModified === 0) {
             throw new Error('Cannot update');
