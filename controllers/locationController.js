@@ -123,3 +123,22 @@ module.exports.tagLocation = async (req, res) => {
     });
   }
 };
+
+module.exports.nameLocation = async (req, res) => {
+  const { location_name } = req.body;
+  // console.log(tag);
+  // console.log(`comment _id : ${_id}`);
+  try {
+    //{ tags: ["red", "blank"] }
+    const location_found = await Location.find({ location_name: location_name });
+    res.status(200).json({
+      success: true,
+      found: location_found.length,
+      data: location_found,
+    });
+  } catch (err) {
+    res.status(500).json({
+      errors: { err },
+    });
+  }
+};
