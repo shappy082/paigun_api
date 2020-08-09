@@ -1,26 +1,26 @@
-const config = require('../config/index')
-const User = require("../models/userModel")
-const { validationResult } = require('express-validator');
+const config = require("../config/index");
+const User = require("../models/userModel");
+const { validationResult } = require("express-validator");
 
-var jwt = require('jsonwebtoken');
+var jwt = require("jsonwebtoken");
 var passportJWT = require("passport-jwt");
 var ExtractJwt = passportJWT.ExtractJwt;
-var jwtOptions = {}
+var jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = config.JWT_SECRET;
 
 exports.signin = async (req, res) => {
-  const { username, password } = req.body
+  const { username, password } = req.body;
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      const error = new Error('Please check data');
+      const error = new Error("Please check data");
       error.statusCode = 422;
       error.validation = errors.array();
       throw error;
     }
     // console.log("name:" + name + "password:" + password)
-    const user = await User.findOne({ username: username })
+    const user = await User.findOne({ username: username });
     if (!user) {
       res.status(401).json({ message: "no such user found" });
     }
@@ -31,11 +31,14 @@ exports.signin = async (req, res) => {
       var token = jwt.sign(payload, jwtOptions.secretOrKey);
       res.json({
         message: "ok",
+        token: token,
         user_id: user.user_id,
-        token: token
+        username: user.username,
+        name: user.name,
+        role: user.role,
       });
     } else {
-      const error = new Error('Wrong password');
+      const error = new Error("Wrong password");
       error.statusCode = 422;
       throw error.message;
     }
@@ -44,13 +47,13 @@ exports.signin = async (req, res) => {
       errors: { error },
     });
   }
-}
+};
 
 module.exports.signup = async (req, res) => {
   const { username, password, name } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const error = new Error('Please check data');
+    const error = new Error("Please check data");
     error.statusCode = 422;
     error.validation = errors.array();
     throw error;
@@ -65,9 +68,9 @@ module.exports.signup = async (req, res) => {
     let newUser = new User({
       user_id: count + 1,
       username: username,
-      name: name
+      name: name,
     });
-    newUser.password = await newUser.encryptPassword(password)
+    newUser.password = await newUser.encryptPassword(password);
 
     try {
       //find exist user
