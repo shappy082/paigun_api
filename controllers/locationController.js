@@ -1,33 +1,19 @@
 const mongoose = require("mongoose");
-//const Post = require('../models/postModel');
 const Location = require("../models/locationModel");
 
 module.exports.getLocation = async function (req, res, next) {
   const { location_id } = req.params;
   try {
-    const location_tb = await Location.findOne({ location_id: location_id });
+    const location = await Location.findOne({ location_id: location_id });
     res.status(200).json({
       success: true,
-      data: location_tb,
+      data: location,
     });
   } catch (err) {
     next(err);
   }
 };
-/*
-module.exports.tagLocation = async function (req, res, next) {
-  const { tag } = req.params;
-  try {
-    const location_tb = await Location.findOne({tag: tag});
-    res.status(200).json({
-      success: true,
-      data: location_tb,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
-*/
+
 module.exports.createLocation = async (req, res) => {
   // console.log(req.body);
   const { tag, location_name, location } = req.body;
@@ -44,11 +30,10 @@ module.exports.createLocation = async (req, res) => {
       location_name: location_name,
       location: location,
     });
-    const exist = await Location.findOne(
-      {
-        location_name: location_name,
-        tag: tag
-      });
+    const exist = await Location.findOne({
+      location_name: location_name,
+      tag: tag,
+    });
     if (exist !== null) {
       res.status(500).json({
         errors: "Location exist",
@@ -64,7 +49,7 @@ module.exports.createLocation = async (req, res) => {
       }
     }
   });
-}
+};
 
 module.exports.updateLocation = async (req, res) => {
   try {
@@ -130,7 +115,9 @@ module.exports.nameLocation = async (req, res) => {
   // console.log(`comment _id : ${_id}`);
   try {
     //{ tags: ["red", "blank"] }
-    const location_found = await Location.find({ location_name: location_name });
+    const location_found = await Location.find({
+      location_name: location_name,
+    });
     res.status(200).json({
       success: true,
       found: location_found.length,
