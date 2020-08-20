@@ -13,7 +13,7 @@ router.post(
   authentication.isLoggedIn,
   locationController.updateLocation
 );
-router.post("/tag", authentication.isLoggedIn, locationController.tagLocation);
+router.post("/tag", locationController.tagLocation);
 router.post(
   "/location_name",
   authentication.isLoggedIn,

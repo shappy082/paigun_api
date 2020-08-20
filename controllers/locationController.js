@@ -96,7 +96,7 @@ module.exports.tagLocation = async (req, res) => {
   // console.log(`comment _id : ${_id}`);
   try {
     //{ tags: ["red", "blank"] }
-    const tag_found = await Location.find({ tag: { $in: tag } });
+    const tag_found = await Location.find({ tag: { $all: tag } });
     res.status(200).json({
       success: true,
       found: tag_found.length,
