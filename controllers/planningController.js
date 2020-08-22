@@ -64,13 +64,13 @@ module.exports.deletePlan = async (req, res) => {
       }
     );
     if (plan_deleted.nModified === 0) {
-        throw new Error("Cannot delete");
-      } else {
-        res.status(201).json({
-          message: "delete completed",
-          success: true,
-        });
-      }
+      throw new Error("Cannot delete");
+    } else {
+      res.status(201).json({
+        message: "delete completed",
+        success: true,
+      });
+    }
   } catch (err) {
     res.status(500).json({
       errors: { err },
@@ -113,7 +113,7 @@ module.exports.getPlanFromLocationTag = async (req, res) => {
   let locations_id = [];
   try {
     //find location_id from tags
-    const place = await Location.find({ tag: { $all: tags } });
+    const place = await Location.find({ tag: { $all: tags.split(" ") } });
     place.map((location) => {
       locations_id.push(location.location_id);
     });
