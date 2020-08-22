@@ -109,12 +109,18 @@ module.exports.getPlanFromID = async (req, res) => {
 };
 
 module.exports.getPlanFromLocationTag = async (req, res) => {
+  console.log("getPlanFromLocationTag");
   const { tags } = req.body;
   let locations_id = [];
   try {
     //find location_id from tags
-    const place = await Location.find({ tag: { $all: tags.split(" ") } });
+    const place = await Location.find({ tag: { $in: tags } });
     place.map((location) => {
+      locations_id.push(location.location_id);
+    });
+    //find location_id from name
+    const name_place = await Location.find({ location_name: { $in: tags } });
+    name_place.map((location) => {
       locations_id.push(location.location_id);
     });
     if (locations_id !== null) {
