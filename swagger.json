@@ -11,6 +11,14 @@
     {
       "name": "User",
       "description": "API for users in the system"
+    },
+    {
+      "name": "Location",
+      "description": "API for location handle"
+    },
+    {
+      "name": "Planning",
+      "description": "API for plan handle"
     }
   ],
   "paths": {
@@ -63,6 +71,129 @@
           }
         }
       }
+    },
+    "/location/insert": {
+      "post": {
+        "tags": ["Location"],
+        "description": "add new location",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Location information",
+            "schema": {
+              "$ref": "#/definitions/Location_insert_request"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": "add OK",
+            "schema": {
+              "$ref": "#/definitions/Location_insert_response"
+            }
+          }
+        }
+      }
+    },
+    "/location/{location_id}": {
+      "get": {
+        "tags": ["Location"],
+        "description": "get location info",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "location_id",
+            "description": "Location information",
+            "required": true
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Location_info_response"
+            }
+          }
+        }
+      }
+    },
+    "/planning/insert": {
+      "post": {
+        "tags": ["Planning"],
+        "description": "add new plan",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "plan information",
+            "schema": {
+              "$ref": "#/definitions/Planning_insert_request"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Planning_insert_response"
+            }
+          }
+        }
+      }
+    },
+    "/planning/trip/{trip_id}": {
+      "get": {
+        "tags": ["Planning"],
+        "description": "get plan from trip id",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "trip_id",
+            "description": "trip information",
+            "required": true
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Planning_info_response"
+            }
+          }
+        }
+      }
+    },
+    "/planning/user/{user_id}": {
+      "get": {
+        "tags": ["Planning"],
+        "description": "get plan from user id",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "user_id",
+            "description": "trip information",
+            "required": true
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "$ref": "#/definitions/Planning_info_response"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -90,17 +221,88 @@
         }
       }
     },
+    "Location": {
+      "required": ["location_id", "location_name"],
+      "type": "object",
+      "properties": {
+        "location_id": {
+          "type": "number",
+          "example": 1
+        },
+        "tag": {
+          "type": "array",
+          "example": ["น่าน", "โรงแรม"]
+        },
+        "location_name": {
+          "type": "string",
+          "example": "มารวย"
+        },
+        "location": {
+          "type": "array",
+          "example": ["12.123456", "101.789456"]
+        }
+      }
+    },
+    "Planning": {
+      "required": ["trip_id", "user_id", "plan_name", "status"],
+      "type": "object",
+      "properties": {
+        "trip_id": {
+          "type": "number",
+          "example": 1
+        },
+        "user_id": {
+          "type": "number",
+          "example": 1
+        },
+        "plan_name": {
+          "type": "string",
+          "example": "แอ่วเหนือจ้าว"
+        },
+        "create_date": {
+          "type": "string",
+          "example": "2020-08-24T10:44:50.364+00:00"
+        },
+        "status": {
+          "type": "boolean",
+          "example": true
+        },
+        "plan": {
+          "type": "array",
+          "example": [
+            {
+              "location_id": 5,
+              "location_name": "วัดน่าน",
+              "date": "2020-10-09T08:00:00.000+00:00"
+            },
+            {
+              "location_id": 12,
+              "location_name": "วัดด่านเหนือ",
+              "date": "2020-10-09T12:00:00.000+00:00"
+            }
+          ]
+        }
+      }
+    },
     "User_signin_request": {
       "required": ["username", "password"],
       "type": "object",
       "properties": {
         "username": {
           "type": "string",
-          "example":"user_test_01"
+          "example": "user_test_01"
         },
         "password": {
           "type": "string",
-          "example":"12345678"
+          "example": "12345678"
+        },
+        "name": {
+          "type": "string",
+          "example": "jack"
+        },
+        "role": {
+          "type": "string",
+          "example": "member"
         }
       }
     },
@@ -121,15 +323,15 @@
       "properties": {
         "username": {
           "type": "string",
-          "example":"user_test_01"
+          "example": "user_test_01"
         },
         "password": {
           "type": "string",
-          "example":"12345678"
+          "example": "12345678"
         },
         "name": {
           "type": "string",
-          "example":"John Doe"
+          "example": "John Doe"
         }
       }
     },
@@ -142,6 +344,91 @@
         },
         "message": {
           "type": "string"
+        }
+      }
+    },
+    "Location_insert_request": {
+      "required": ["tag", "location_name", "location"],
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "array",
+          "example": ["วัด", "น่าน"]
+        },
+        "location_name": {
+          "type": "string",
+          "example": "วัดน่าน"
+        },
+        "location": {
+          "type": "array",
+          "example": ["14.123654", "100.215368"]
+        }
+      }
+    },
+    "Location_insert_response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Location_info_response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "$ref": "#/definitions/Location"
+        }
+      }
+    },
+    "Planning_insert_request": {
+      "required": ["user_id", "plan_name", "plan"],
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "number",
+          "example": 2
+        },
+        "plan_name": {
+          "type": "string",
+          "example": "ไปเที่ยวกัน"
+        },
+        "plan": {
+          "type": "array",
+          "example": [
+            {
+              "location_id": 5,
+              "location_name": "วัดน่าน",
+              "date": "2020-10-09T08:00:00.000+00:00"
+            },
+            {
+              "location_id": 12,
+              "location_name": "วัดด่านเหนือ",
+              "date": "2020-10-09T12:00:00.000+00:00"
+            }
+          ]
+        }
+      }
+    },
+    "Planning_insert_response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Planning_info_response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "$ref": "#/definitions/Planning"
         }
       }
     }
